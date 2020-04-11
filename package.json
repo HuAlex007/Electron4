@@ -1,6 +1,6 @@
 {
   "name": "Electron4",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "license": "ISC",
   "description": "My Electron4 description",
   "author": "AlexHu",
@@ -16,6 +16,9 @@
       "target": "squirrel",
       "icon": "build/icon.ico"
     }
+  },
+  "updater": {
+    "url": "https://github.com/HuAlex007/Electron4/blob/master/update.json"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "@electron-forge/publisher-electron-release-server": "^6.0.0-beta.50",
     "electron-builder-squirrel-windows": "^22.5.1",
     "electron-log": "^4.1.1",
+    "electron-simple-updater": "^2.0.8",
     "now": "^17.1.1",
     "update-electron-app": "^1.5.0"
   }

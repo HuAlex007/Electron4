@@ -1,4 +1,5 @@
-const { app, BrowserWindow, autoUpdater, dialog } = require('electron')
+const { app, BrowserWindow,log,  dialog } = require('electron')
+const autoUpdater = require('electron-simple-updater')
 function createWindow () {   
   // 创建浏览器窗口
   const win = new BrowserWindow({
@@ -40,21 +41,36 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. 也可以拆分成几个文件，然后用 require 导入。
-
 //alex hu================================================
 //require('update-electron-app')()
-const server = "https://electron4.now.sh"
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
-autoUpdater.setFeedURL(feed)
-//JavaScript
-//每分钟检查一次
+// const server = "https://electron4.now.sh"
+// const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+// autoUpdater.setFeedURL(feed)
+// //JavaScript
+// //每分钟检查一次
+// setInterval(() => {
+//     autoUpdater.checkForUpdates()
+// 	console.error('checkForUpdates')
+// }, 60000)
+
+autoUpdater.init({
+  checkUpdateOnStart: false,
+  autoDownload: true,
+  logger:log
+});
+
 setInterval(() => {
-    autoUpdater.checkForUpdates()
-	console.error('checkForUpdates')
+  autoUpdater.checkForUpdates()
+  console.log('checkForUpdates')
 }, 60000)
 
-//update-downloaded
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+autoUpdater.on('update-available', (meta) => {
+  console.log('[updater] update avaiable', meta.version);
+  updater.downloadUpdate();
+});
+autoUpdater.on('update-downloading', () => {});
+
+autoUpdater.on('update-downloaded', () => {
   const dialogOpts = {
     type: 'info',
     buttons: ['Restart', 'Later'],
@@ -65,9 +81,8 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall()
   })
-})
-//JavaScript
-autoUpdater.on('error', message => {
-    console.error('There was a problem updating the application')
-    console.error(message)
-})
+});
+autoUpdater.on('error', (err) => {
+  console.error('There was a problem updating the application')
+  console.error(message)
+});
