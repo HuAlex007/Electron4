@@ -53,8 +53,7 @@ app.on('activate', () => {
 
 updater.init({
   checkUpdateOnStart: false,
-  autoDownload: false,
-  logger:log
+  autoDownload: false
 });
 
 setInterval(() => {  
@@ -62,14 +61,17 @@ setInterval(() => {
 }, 60000)
 
 updater.on('update-available', (meta) => {
-  console.log('[updater] update avaiable', meta.version);
+  //console.log('[updater] update avaiable', meta.version);
+  log.info('[updater] update avaiable', meta.version);
   updater.downloadUpdate();
 });
-updater.on('update-not-available', (meta) => {
-  console.log('[updater] update not avaiable', meta.version);  
+updater.on('update-not-available', () => {
+  //console.log('[updater] update not avaiable, for '+ app.getVersion());  
+  log.info('[updater] update not avaiable, for '+ app.getVersion());
 });
 updater.on('update-downloading', (meta) => {
-  console.log('[updater] update is downloading', meta.version);
+  //console.log('[updater] update is downloading', meta.version);
+  log.info('[updater] update is downloading', meta.version)
 });
 updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   const dialogOpts = {
@@ -83,7 +85,9 @@ updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     if (returnValue.response === 0) updater.quitAndInstall()
   })
 });
-updater.on('error', (err) => {
-  console.error('There was a problem updating the application')
-  console.error(message)
+updater.on('error', (message) => {
+  //console.error('There was a problem updating the application')
+ //console.error(message)
+ log.error('There was a problem updating the application')
+ log.error(message)
 });
