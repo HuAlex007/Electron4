@@ -1,5 +1,9 @@
-const { app, BrowserWindow,log,  dialog } = require('electron')
-const autoUpdater = require('electron-simple-updater')
+const { app, BrowserWindow, dialog } = require('electron')
+const log = require('electron-log');
+const updater = require('electron-simple-updater');
+const pkg = require('../../package.json');
+const AppName = pkg.productName
+
 function createWindow () {   
   // 创建浏览器窗口
   const win = new BrowserWindow({
@@ -46,43 +50,40 @@ app.on('activate', () => {
 // const server = "https://electron4.now.sh"
 // const feed = `${server}/update/${process.platform}/${app.getVersion()}`
 // autoUpdater.setFeedURL(feed)
-// //JavaScript
-// //每分钟检查一次
-// setInterval(() => {
-//     autoUpdater.checkForUpdates()
-// 	console.error('checkForUpdates')
-// }, 60000)
 
-autoUpdater.init({
+updater.init({
   checkUpdateOnStart: false,
-  autoDownload: true,
+  autoDownload: false,
   logger:log
 });
 
-setInterval(() => {
-  autoUpdater.checkForUpdates()
-  console.log('checkForUpdates')
+setInterval(() => {  
+  updater.checkForUpdates() 
 }, 60000)
 
-autoUpdater.on('update-available', (meta) => {
+updater.on('update-available', (meta) => {
   console.log('[updater] update avaiable', meta.version);
   updater.downloadUpdate();
 });
-autoUpdater.on('update-downloading', () => {});
-
-autoUpdater.on('update-downloaded', () => {
+updater.on('update-not-available', (meta) => {
+  console.log('[updater] update not avaiable', meta.version);  
+});
+updater.on('update-downloading', (meta) => {
+  console.log('[updater] update is downloading', meta.version);
+});
+updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: 'info',
     buttons: ['Restart', 'Later'],
-    title: 'Application Update',
+    title: AppName+' Update',
     message: process.platform === 'win32' ? releaseNotes : releaseName,
     detail: 'A new version has been downloaded. Restart the application to apply the updates.'
   }
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) autoUpdater.quitAndInstall()
+    if (returnValue.response === 0) updater.quitAndInstall()
   })
 });
-autoUpdater.on('error', (err) => {
+updater.on('error', (err) => {
   console.error('There was a problem updating the application')
   console.error(message)
 });
