@@ -1,7 +1,7 @@
 const { app, BrowserWindow, dialog } = require('electron')
 const log = require('electron-log');
 const updater = require('electron-simple-updater');
-const pkg = require('../../package.json');
+const pkg = require('./package.json');
 const AppName = pkg.productName
 
 function createWindow () {   
