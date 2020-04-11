@@ -1,0 +1,40 @@
+{
+  "name": "Electron4",
+  "version": "4.0.0",
+  "license": "ISC",
+  "description": "My Electron4 description",
+  "author": "AlexHu",
+  "productName": "Electron4",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm install && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuAlex007/Electron4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HuAlex007/Electron4/issues"
+  },
+  "homepage": "https://github.com/HuAlex007/Electron4#readme",
+  "devDependencies": {
+    "electron": "^8.2.0",
+    "electron-builder": "^22.4.1",
+    "electron-winstaller": "^4.0.0"
+  },
+  "dependencies": {
+    "@electron-forge/publisher-electron-release-server": "^6.0.0-beta.50",
+    "electron-builder-squirrel-windows": "^22.5.1",
+    "electron-log": "^4.1.1",
+    "now": "^17.1.1",
+    "update-electron-app": "^1.5.0"
+  }
+}
