@@ -1,8 +1,8 @@
 {
   "win32-x64-prod": {
     "readme": "Second Release",
-    "update": "https://github.com/HuAlex007/Electron4/releases/download/v4.0.3",
-    "install": "https://github.com/HuAlex007/Electron4/releases/download/v4.0.3/Electron4.Setup.4.0.3.exe",
-    "version": "4.0.3"
+    "update": "https://github.com/HuAlex007/Electron4/releases/download/v4.0.4",
+    "install": "https://github.com/HuAlex007/Electron4/releases/download/v4.0.4/Electron4.Setup.4.0.4.exe",
+    "version": "4.0.4"
   }
 }
