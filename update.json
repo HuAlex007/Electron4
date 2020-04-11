@@ -1,0 +1,8 @@
+{
+  "darwin-x64-prod": {
+    "readme": "V4.0.0 Release",
+    "update": "https://github.com/HuAlex007/Electron4/releases/download/4.0.0/release.json",
+    "version": "4.0.0"
+  }
+}
+
