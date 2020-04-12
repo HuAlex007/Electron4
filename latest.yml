@@ -1,8 +1,8 @@
-version: 4.0.19
+version: 4.0.18
 files:
-  - url: Electron4.Setup.4.0.19.exe
+  - url: https://github.com/HuAlex007/Electron4/releases/download/v4.0.18/Electron4-Setup-4.0.18.exe
     sha512: cY1L0PdhFEbijuPsjCY/jZTj3aHQik8diGKPhQ7L0RvwJOY5dSpqe7x4STHbVMwLtvXqB0e/O7yycy2Snau0+A==
     size: 128959070
-path: Electron4.Setup.4.0.19.exe
+path: https://github.com/HuAlex007/Electron4/releases/download/v4.0.18/Electron4-Setup-4.0.18.exe
 sha512: cY1L0PdhFEbijuPsjCY/jZTj3aHQik8diGKPhQ7L0RvwJOY5dSpqe7x4STHbVMwLtvXqB0e/O7yycy2Snau0+A==
 releaseDate: '2020-04-12T14:05:46.077Z'
