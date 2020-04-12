@@ -1,10 +1,13 @@
 const { app, BrowserWindow, dialog } = require('electron')
 const log = require('electron-log');
-const updater = require('electron-simple-updater');
 const pkg = require('./package.json');
 const AppName = pkg.productName
+const appVersion = pkg.version;
+const { autoUpdater } = require("electron-updater");
+// 更新服务器地址，比如"http://192.168.56.1/download/"
+//import {uploadUrl} from "../renderer/config/config";
 
-function createWindow () {   
+function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
     width: 800,
@@ -43,51 +46,48 @@ app.on('activate', () => {
   }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. 也可以拆分成几个文件，然后用 require 导入。
-//alex hu================================================
-//require('update-electron-app')()
-// const server = "https://electron4.now.sh"
-// const feed = `${server}/update/${process.platform}/${app.getVersion()}`
-// autoUpdater.setFeedURL(feed)
+//alex hu================================================ 
 
-updater.init({
-  checkUpdateOnStart: false,
-  autoDownload: false,
-  logger: log,
-});
+autoUpdater.autoDownload = true // Open自动更新
+autoUpdater.autoInstallOnAppQuit = true // APP退出的时候自动安装
 
-setInterval(() => {  
-  updater.checkForUpdates() 
-}, 60000)
+const uploadUrl = "http://192.168.56.1/download/"
+autoUpdater.setFeedURL(uploadUrl)
+
+// 每次运行APP检测更新。这里设置延时10s是为了避免还未开始渲染，更新检测就已经完成(网速超快，页面加载跟不上)。
+setTimeout(() => {
+  autoUpdater.checkForUpdates() // 检测是否有更新
+}, 10000)
+
 //update-available
-updater.on('update-available', (meta) => {
+autoUpdater.on('update-available', (meta) => {
   log.info('[updater] update avaiable', meta.version);
-  updater.downloadUpdate();
+  autoUpdater.downloadUpdate();
 });
 //update-not-available
-updater.on('update-not-available', () => {
-  log.info('[updater] update not avaiable, for '+ app.getVersion());
+autoUpdater.on('update-not-available', () => {
+  log.info('[updater] update not avaiable, for ' + app.getVersion());
 });
 //downloading
-updater.on('update-downloading', (meta) => {
+autoUpdater.on('update-downloading', (meta) => {
   log.info('[updater] update is downloading', meta.version)
 });
 //downloaded
-updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: 'info',
     buttons: ['Restart', 'Later'],
-    title: AppName+' Update',
+    title: AppName + ' Update',
     message: process.platform === 'win32' ? releaseNotes : releaseName,
     detail: 'A new version has been downloaded. Restart the application to apply the updates.'
   }
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) updater.quitAndInstall()
-  })
+  //dialog.showMessageBox(dialogOpts).then((returnValue) => {
+  //  if (returnValue.response === 0) autoUpdater.quitAndInstall()
+  //})
 });
 //error
-updater.on('error', (message) => {  
- log.error('There was a problem updating the application')
- log.error(message)
+autoUpdater.on('error', (message) => {
+  log.error('There was a problem updating the application')
+  log.error(message)
 });
+

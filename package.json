@@ -1,7 +1,7 @@
 {
   "name": "Electron4",
-  "version": "4.0.16",
-  "license": "ISC",
+  "version": "4.0.23",
+  "license": "MIT",
   "description": "My Electron4 description",
   "author": "AlexHu",
   "productName": "Electron4",
@@ -10,36 +10,15 @@
     "postinstall": "electron-builder install-app-deps",
     "start": "npm install && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder --publish always"
   },
   "build": {
     "productName": "Electron4",
     "appId": "com.hualex007.Electron4",
     "copyright": "hualex007",
+    "artifactName": "Electron4.Setup.${version}.${ext}",
     "directories": {
-      "output": "buildDir"
-    },
-    "dmg": {
-      "background": "build/background.png",
-      "contents": [
-        {
-          "x": 410,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 130,
-          "y": 150,
-          "type": "file"
-        }
-      ]
-    },
-    "mac": {
-      "icon": "build/icon.icns"
-    },
-    "linux": {
-      "icon": "build/icons"
+      "output": "build"
     },
     "win": {
       "icon": "build/icon.ico",
@@ -63,14 +42,20 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Electron4"
-    }
-  },
-  "updater": {
-    "url": "https://raw.githubusercontent.com/HuAlex007/Electron4/master/update.json"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://192.168.56.1/download/"
+      }
+    ],
+    "files": [
+      "./**/*"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HuAlex007/Electron4.git"
+    "url": "https://github.com/HuAlex007/Electron4.git"
   },
   "bugs": {
     "url": "https://github.com/HuAlex007/Electron4/issues"
@@ -87,6 +72,7 @@
     "@electron-forge/publisher-electron-release-server": "^6.0.0-beta.50",
     "electron-log": "^4.1.1",
     "electron-simple-updater": "^2.0.8",
+    "electron-updater": "^4.2.5",
     "now": "^17.1.1",
     "update-electron-app": "^1.5.0"
   }
