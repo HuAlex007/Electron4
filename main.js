@@ -53,26 +53,27 @@ app.on('activate', () => {
 
 updater.init({
   checkUpdateOnStart: false,
-  autoDownload: false
+  autoDownload: false,
+  logger: log,
 });
 
 setInterval(() => {  
   updater.checkForUpdates() 
 }, 60000)
-
+//update-available
 updater.on('update-available', (meta) => {
-  //console.log('[updater] update avaiable', meta.version);
   log.info('[updater] update avaiable', meta.version);
   updater.downloadUpdate();
 });
+//update-not-available
 updater.on('update-not-available', () => {
-  //console.log('[updater] update not avaiable, for '+ app.getVersion());  
   log.info('[updater] update not avaiable, for '+ app.getVersion());
 });
+//downloading
 updater.on('update-downloading', (meta) => {
-  //console.log('[updater] update is downloading', meta.version);
   log.info('[updater] update is downloading', meta.version)
 });
+//downloaded
 updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: 'info',
@@ -85,9 +86,8 @@ updater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     if (returnValue.response === 0) updater.quitAndInstall()
   })
 });
-updater.on('error', (message) => {
-  //console.error('There was a problem updating the application')
- //console.error(message)
+//error
+updater.on('error', (message) => {  
  log.error('There was a problem updating the application')
  log.error(message)
 });
