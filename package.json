@@ -1,6 +1,6 @@
 {
   "name": "Electron4",
-  "version": "4.0.23",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "My Electron4 description",
   "author": "AlexHu",
@@ -21,7 +21,7 @@
       "output": "build"
     },
     "win": {
-      "icon": "build/icon.ico",
+      "icon": "build/icon/icon.ico",
       "target": [
         {
           "target": "nsis",
@@ -36,9 +36,9 @@
       "oneClick": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./build/icon.ico",
-      "uninstallerIcon": "./build/icon.ico",
-      "installerHeaderIcon": "./build/icon.ico",
+      "installerIcon": "./build/icon/icon.ico",
+      "uninstallerIcon": "./build/icon/icon.ico",
+      "installerHeaderIcon": "./build/icon/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Electron4"
@@ -46,7 +46,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://192.168.56.1/download/"
+        "url": "http://10.2.153.91/download/"
       }
     ],
     "files": [
@@ -60,12 +60,9 @@
   "bugs": {
     "url": "https://github.com/HuAlex007/Electron4/issues"
   },
-  "homepage": "https://github.com/HuAlex007/Electron4#readme",
   "devDependencies": {
     "electron": "^8.2.0",
     "electron-builder": "^22.4.1",
-    "electron-builder-squirrel-windows": "^22.5.1",
-    "electron-installer-squirrel-windows": "^1.3.0",
     "electron-winstaller": "^4.0.0"
   },
   "dependencies": {
@@ -73,7 +70,6 @@
     "electron-log": "^4.1.1",
     "electron-simple-updater": "^2.0.8",
     "electron-updater": "^4.2.5",
-    "now": "^17.1.1",
     "update-electron-app": "^1.5.0"
   }
 }
