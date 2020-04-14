@@ -1,6 +1,6 @@
 {
   "name": "Electron4",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "license": "MIT",
   "description": "My Electron4 description",
   "author": "AlexHu",
@@ -13,13 +13,19 @@
     "dist": "electron-builder"
   },
   "build": {
-    "productName": "Electron4",
     "appId": "com.hualex007.Electron4",
+    "productName": "Electron4",
     "copyright": "hualex007",
     "artifactName": "Electron4.Setup.${version}.${ext}",
     "directories": {
-      "output": "build"
+      "output": "dist"
     },
+    "publish": [
+        {
+            "provider": "generic",
+            "url": "http://127.0.0.1/download" 
+        }
+    ],
     "win": {
       "icon": "build/icon/icon.ico",
       "target": [
@@ -33,19 +39,17 @@
       ]
     },
     "nsis": {
-      "oneClick": false,
+      "oneClick": true,
       "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
+      "allowToChangeInstallationDirectory": false,
       "installerIcon": "./build/icon/icon.ico",
       "uninstallerIcon": "./build/icon/icon.ico",
       "installerHeaderIcon": "./build/icon/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Electron4"
-    },
-    "files": [
-      "./**/*"
-    ]
+      "shortcutName": "Electron4",
+      "include": "build/installer.nsh"
+    }
   },
   "repository": {
     "type": "git",
