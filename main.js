@@ -44,8 +44,8 @@ app.on('activate', () => {
 
 //********auto update code begin******************************************************************
 
-// autoUpdater.autoDownload = true // Open自动更新
-// utoUpdater.autoInstallOnAppQuit = false // APP退出的时候自动安装
+autoUpdater.autoDownload = true // set autoDownload if find newversion by checkForUpdates()
+autoUpdater.autoInstallOnAppQuit = true // auto install when App quit
 
 // it will check "${uploadUrl}/latest.yml" to decide whether update or not
 // and we also should put exe package under ${uploadUrl} 
@@ -60,30 +60,27 @@ setTimeout(() => {
 //update-available
 autoUpdater.on('update-available', (meta) => {
   log.info('[updater] update avaiable', meta.version);
-  autoUpdater.downloadUpdate();
+  //autoUpdater.downloadUpdate();// download new version
 });
 //update-not-available
 autoUpdater.on('update-not-available', () => {
   log.info('[updater] update not avaiable, for ' + app.getVersion());
 });
-//downloading
-autoUpdater.on('update-downloading', (meta) => {
-  log.info('[updater] update is downloading', meta.version)
-});
 //downloaded
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-  const dialogOpts = {
-    type: 'info',
-    buttons: ['Restart', 'Later'],
-    title: AppName + ' Update',
-    message: process.platform === 'win32' ? releaseNotes : releaseName,
-    detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-  }
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) {
-      autoUpdater.quitAndInstall()
-    }
-  })
+autoUpdater.on('update-downloaded', (meta) => {
+  log.info('[updater] update is downloaded. version:'+ meta.version+". filepath:" + meta.downloadedFile)
+  // const dialogOpts = {
+  //   type: 'info',
+  //   buttons: ['Restart', 'Later'],
+  //   title: AppName + ' Update',
+  //   message: process.platform === 'win32' ? releaseNotes : releaseName,
+  //   detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+  // }
+  // dialog.showMessageBox(dialogOpts).then((returnValue) => {
+  //   if (returnValue.response === 0) {
+  //     autoUpdater.quitAndInstall()
+  //   }
+  // })
 });
 //error
 autoUpdater.on('error', (message) => {
